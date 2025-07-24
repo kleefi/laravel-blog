@@ -12,27 +12,18 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $posts = Post::with('category')->paginate(10);
         return view('admin.posts', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Category::all();
         return view('admin.form', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -41,11 +32,15 @@ class PostController extends Controller
             'category_id' => 'required',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
+
         $validated['slug'] = Str::slug($request->title);
+        $validated['user_id'] = auth()->id(); // Tambahkan ini
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('uploads', 'public');
-            $validated['image'] = $imagePath; // simpan path ke DB
+            $validated['image'] = $imagePath;
         }
+
         try {
             Post::create($validated);
             return redirect()->back()->with('success', 'Post berhasil ditambah');
@@ -53,6 +48,7 @@ class PostController extends Controller
             return redirect()->back()->with('error', 'Post gagal ditambah');
         }
     }
+
 
     /**
      * Display the specified resource.

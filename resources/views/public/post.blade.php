@@ -5,6 +5,7 @@
 <div class="border-4 px-4 py-20 mb-10 border-[#1b1b1b] bg-white rounded-md">
     <div class="text-center flex justify-center mb-12 flex-col">
         <h2 class="md:text-4xl text-xl font-bold text-center mb-4">{{ $post->title }}</h2>
+        <span class="mb-4">Written by {{ $post->user->name }} </span>
         <p class="md:my-4 my-4 md:mx-8 mx-auto text-xs text-nowrap">
             <span class="bg-yellow-500 rounded-md font-semibold p-3 mr-4"> {{
                 $post->created_at->format('d

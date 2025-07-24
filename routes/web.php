@@ -11,38 +11,20 @@ use App\Http\Controllers\UiUxDesign;
 use App\Http\Controllers\WebDevelopment;
 use Illuminate\Support\Facades\Route;
 
-
+// ======= PUBLIC ROUTES =======
 Route::get('/', [PostController::class, 'index']);
 Route::get('/category', [CategoryController::class, 'index']);
 Route::resource('/digital-marketing', DigitalMarketing::class);
 Route::resource('/web-development', WebDevelopment::class);
 Route::resource('/uiux-design', UiUxDesign::class);
-Route::get('/dasbor', [AdminDashboardController::class, 'index']);
-Route::prefix('/dasbor')->group(function () {
+
+// ======= DASHBOARD ROUTES =======
+Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/posts', AdminPostController::class);
     Route::resource('/categories', AdminCategoryController::class);
-});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
