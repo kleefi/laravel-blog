@@ -14,7 +14,7 @@ A simple blog application based on Laravel 12 with standard features such as pos
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Main Features
 
 -   CRUD Post (Create, Read, Update, Delete)
 -   CRUD Kategori
