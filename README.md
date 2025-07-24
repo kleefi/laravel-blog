@@ -1,6 +1,6 @@
 # 📝 Blog System — Laravel 12
 
-Sebuah aplikasi blog sederhana berbasis Laravel 12 dengan fitur standar seperti manajemen post, kategori, dan user menggunakan **Laravel Breeze**, **Tailwind CSS**, dan **Spatie Permission**.
+A simple blog application based on Laravel 12 with standard features such as post, category, and user management using **Laravel Breeze**, **Tailwind CSS**, and **Spatie Permission**.
 
 ---
 
@@ -19,6 +19,6 @@ Sebuah aplikasi blog sederhana berbasis Laravel 12 dengan fitur standar seperti 
 -   CRUD Post (Create, Read, Update, Delete)
 -   CRUD Kategori
 -   CRUD User (hanya oleh admin)
--   Manajemen role dan permission (via Spatie)
--   Tampilan responsive dengan Tailwind
--   Otentikasi (login, register) via Laravel Breeze
+-   Role and permission management (via Spatie)
+-   Responsive layout with Tailwind
+-   Authentication (login, register) via Laravel Breeze
