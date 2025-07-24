@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DigitalMarketing extends Controller
@@ -11,7 +12,23 @@ class DigitalMarketing extends Controller
      */
     public function index()
     {
-        return view('public.digital-marketing');
+        $digitalMarketing = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'Digital Marketing');
+            })
+            ->latest()
+            ->paginate(10);
+        $topDigitalMarketing = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'Digital Marketing');
+            })
+            ->orderBy('views', 'desc')
+            ->latest()
+            ->get();
+        return view('public.digital-marketing', compact([
+            'digitalMarketing',
+            'topDigitalMarketing',
+        ]));
     }
 
     /**

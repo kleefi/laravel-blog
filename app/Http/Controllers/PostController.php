@@ -26,6 +26,14 @@ class PostController extends Controller
             })
             ->latest()
             ->get();
+        $topDigitalMarketing = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'Digital Marketing');
+            })
+            ->orderBy('views', 'desc')
+            ->latest()
+            ->get();
+
         $webDev = Post::with('category')
             ->whereHas('category', function ($query) {
                 $query->where('title', 'Web Development');
@@ -47,6 +55,7 @@ class PostController extends Controller
         return view('public.index', compact([
             'postSliders',
             'digitalMarketing',
+            'topDigitalMarketing',
             'digitalMarketingThumbs',
             'digitalMarketingList',
             'webDev',

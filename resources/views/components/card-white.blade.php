@@ -8,7 +8,7 @@
     <div class="grid md:grid-cols-2 gap-8 justify-items-center">
         @foreach($webThumbs as $post)
         <a href="{{ $post->slug }}">
-            <div class="bg-white p-4 rounded-2xl border-black border-2 shadow-custom-black w-[80%] mx-8">
+            <div class="bg-white p-4 rounded-2xl border-black border-2 shadow-custom-black w-[80%] md:mx-8 mx-auto">
                 <img class="w-full object-cover md:h-[650px] h-[300px] rounded-md border-2 border-black -mt-9 mb-1"
                     src="{{ asset('storage/'.$post->image) }}">
                 <div class="-mt-36">

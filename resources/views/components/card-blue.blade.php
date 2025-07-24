@@ -43,7 +43,7 @@
         <div class="md:w-2/3 w-full bg-lime-100 p-4 rounded-2xl border-black border-2 shadow-custom-black">
             <h3 class="font-semibold p-3 text-lg flex -mt-12 mb-4 mx-auto justify-center"><span
                     class="bg-yellow-500 rounded-md p-2 w-2/3 text-xl text-center">Top Posts</span></h3>
-            @foreach($digitalMarketing as $post)
+            @foreach($topDigitalMarketing as $post)
             <a href="{{ $post->slug }}">
                 <div class="grid grid-cols-[30%_70%] gap-0 items-center">
                     <img class="rounded-full border-black border-2 object-cover h-[80px] w-[80px] p-1.5"

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class WebDevelopment extends Controller
@@ -11,7 +12,23 @@ class WebDevelopment extends Controller
      */
     public function index()
     {
-        return view('public.web-development');
+        $webDev = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'Web Development');
+            })
+            ->latest()
+            ->paginate(10);
+        $topWebDev = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'Web Development');
+            })
+            ->orderBy('views', 'desc')
+            ->latest()
+            ->get();
+        return view('public.web-development', compact([
+            'webDev',
+            'topWebDev',
+        ]));
     }
 
     /**

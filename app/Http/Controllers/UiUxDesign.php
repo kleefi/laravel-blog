@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class UiUxDesign extends Controller
@@ -11,7 +12,23 @@ class UiUxDesign extends Controller
      */
     public function index()
     {
-        return view('public.uiux');
+        $uiux = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'UI/UX Design');
+            })
+            ->latest()
+            ->paginate(10);
+        $topUiux = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'UI/UX Design');
+            })
+            ->orderBy('views', 'desc')
+            ->latest()
+            ->get();
+        return view('public.uiux', compact([
+            'uiux',
+            'topUiux',
+        ]));
     }
 
     /**
