@@ -55,7 +55,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.form-category', compact('category'));
     }
 
     /**
@@ -63,7 +64,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate(
+            ["title" => "required"]
+        );
+        try {
+            $category = Category::findOrFail($id);
+            $category->update($validated);
+            return redirect()->back()->with('success', 'berhasil mengupdate kategori');
+        } catch (Exception $e) {
+            return redirect()->back()->with('success', 'gagal mengupdate kategori ');
+        }
     }
 
     /**

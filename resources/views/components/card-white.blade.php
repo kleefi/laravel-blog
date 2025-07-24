@@ -26,7 +26,7 @@
         </a>
         @endforeach
         <div class="md:w-full md:mr-16 mr-0 w-[80%] mt-16 md:mt-8">
-            @foreach($postSliders as $slider)
+            @foreach($postSliders->take(3) as $slider)
             <a href="{{ $slider->slug }}">
                 <div
                     class="grid md:grid-cols-2 mb-10 bg-white p-4 rounded-2xl border-black border-2 shadow-custom-black w-full">

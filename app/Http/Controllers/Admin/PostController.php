@@ -62,9 +62,11 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $slug)
     {
-        //
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $categories = Category::all();
+        return view('admin.form', compact('post', 'categories'));
     }
 
     /**
@@ -72,7 +74,32 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+        ]);
+
+        $post = Post::findOrFail($id);
+        $validated['slug'] = Str::slug($request->title);
+        $validated['user_id'] = auth()->id();
+
+        if ($request->hasFile('image')) {
+            if ($post->image && Storage::disk('public')->exists($post->image)) {
+                Storage::disk('public')->delete($post->image);
+            }
+
+            $imagePath = $request->file('image')->store('uploads', 'public');
+            $validated['image'] = $imagePath;
+        }
+
+        try {
+            $post->update($validated);
+            return redirect()->route('posts.index')->with('success', 'Post berhasil diupdate');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Post gagal diupdate');
+        }
     }
 
     /**

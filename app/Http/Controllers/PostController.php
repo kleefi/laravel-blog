@@ -17,7 +17,7 @@ class PostController extends Controller
     {
         $postSliders = Post::with('category')
             ->orderBy('created_at', 'desc')
-            ->limit(3)
+            ->limit(4)
             ->get();
         $postSidebar = Post::with('category')
             ->orderBy('created_at', 'desc')
