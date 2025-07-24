@@ -32,9 +32,10 @@ class PostController extends Controller
             'category_id' => 'required',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
-
         $validated['slug'] = Str::slug($request->title);
         $validated['user_id'] = auth()->id(); // Tambahkan ini
+        $validated['is_slider'] = $request->has('is_slider') ? 1 : 0;
+
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('uploads', 'public');
@@ -80,10 +81,10 @@ class PostController extends Controller
             'category_id' => 'required',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
-
         $post = Post::findOrFail($id);
         $validated['slug'] = Str::slug($request->title);
         $validated['user_id'] = auth()->id();
+        $validated['is_slider'] = $request->has('is_slider');
 
         if ($request->hasFile('image')) {
             if ($post->image && Storage::disk('public')->exists($post->image)) {
@@ -96,7 +97,7 @@ class PostController extends Controller
 
         try {
             $post->update($validated);
-            return redirect()->route('posts.index')->with('success', 'Post berhasil diupdate');
+            return redirect()->route('posts.edit', $post->slug)->with('success', 'Post berhasil diupdate');
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Post gagal diupdate');
         }

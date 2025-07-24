@@ -1,18 +1,6 @@
+@section('title','Create new category')
 <x-app-layout>
     <div class="max-w-xl mx-auto py-12">
-        @if(session('success'))
-        {{ session('success') }}
-        @endif
-        @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        @endif
-        @if(session('error'))
-        {{ session('error') }}
-        @endif
         <form action="{{ isset($category)? route('categories.update',$category->id) :route('categories.store') }}"
             method="POST" class="space-y-6 bg-white p-6 rounded-lg shadow-md">
             @csrf
@@ -20,6 +8,19 @@
             @method('PUT')
             @endif
             <div>
+                @if(session('success'))
+                <x-alert type="success" :message="session('success')" />
+                @endif
+                @if($errors->any())
+                <ul class="mb-4 text-red-600 list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                @endif
+                @if(session('error'))
+                <x-alert type="error" :message="session('error')" />
+                @endif
                 <label for="title" class="block mb-1 text-sm font-medium text-gray-700">Category Title</label>
                 <input type="text" name="title" id="title" value="{{ old('title',$category->title??'') }}"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

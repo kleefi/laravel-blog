@@ -1,15 +1,24 @@
+@section('title', 'Users')
+
 <x-app-layout>
     <div class="py-12">
         @if(session('success'))
-        <div class="mb-4 p-4 text-green-800 bg-green-100 border border-green-200 rounded-lg">
-            {{ session('success') }}
-        </div>
+        <x-alert type="success" :message="session('success')" />
         @endif
-
+        @if($errors->any())
+        <ul class="mb-4 text-red-600 list-disc list-inside">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        @endif
+        @if(session('error'))
+        <x-alert type="error" :message="session('error')" />
+        @endif
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <div class="flex justify-between items-center px-6 py-4 border-b">
-                <h2 class="text-lg font-semibold">Categories</h2>
-                <a href="{{ route('categories.create') }}"
+                <h2 class="text-lg font-semibold">Users</h2>
+                <a href="{{ route('users.create') }}"
                     class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm">+ Create New</a>
             </div>
             <table class="min-w-full text-left">
@@ -21,16 +30,16 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y">
-                    @forelse($categories as $category)
+                    @forelse($users as $user)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $category->title }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $category->id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $user->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $user->email }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <div class="flex items-center space-x-2">
-                                <a href="{{ route('categories.edit', $category->id) }}"
+                                <a href="{{ route('users.edit', $user->id) }}"
                                     class="text-blue-600 hover:underline text-sm">Edit</a>
 
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST"
                                     onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
@@ -42,7 +51,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="2" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">No categories found.
+                        <td colspan="2" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">No users found.
                         </td>
                     </tr>
                     @endforelse

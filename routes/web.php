@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\DigitalMarketing;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UiUxDesign;
@@ -23,6 +24,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/posts', AdminPostController::class);
     Route::resource('/categories', AdminCategoryController::class);
+    Route::resource('/users', AdminUserController::class);
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

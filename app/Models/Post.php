@@ -10,15 +10,18 @@ class Post extends Model
 {
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $casts = [
+        'is_slider' => 'boolean',
+    ];
     protected $fillable = [
         "title",
         "slug",
         "body",
         "category_id",
         "image",
-        "user_id"
+        "user_id",
+        "is_slider"
     ];
-
     public function category()
     {
         return $this->belongsTo(Category::class);

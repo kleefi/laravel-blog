@@ -16,14 +16,46 @@ class PostController extends Controller
     public function index()
     {
         $postSliders = Post::with('category')
+            ->where('is_slider', true)
             ->orderBy('created_at', 'desc')
             ->limit(4)
             ->get();
-        $postSidebar = Post::with('category')
-            ->orderBy('created_at', 'desc')
-            ->limit(4)
+        $digitalMarketing = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'Digital Marketing');
+            })
+            ->latest()
             ->get();
-        return view('public.index', compact(['postSliders', 'postSidebar']));
+        $webDev = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'Web Development');
+            })
+            ->latest()
+            ->get();
+        $uiux = Post::with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('title', 'UI/UX Design');
+            })
+            ->latest()
+            ->get();
+        $digitalMarketingThumbs = $digitalMarketing->take(2);
+        $digitalMarketingList = $digitalMarketing->slice(2);
+        $webThumbs = $webDev->take(1);
+        $webList = $webDev->slice(1);
+        $uiuxThumbs = $uiux->take(1);
+        $uiuxList = $uiux->slice(1);
+        return view('public.index', compact([
+            'postSliders',
+            'digitalMarketing',
+            'digitalMarketingThumbs',
+            'digitalMarketingList',
+            'webDev',
+            'webThumbs',
+            'webList',
+            'uiux',
+            'uiuxThumbs',
+            'uiuxList'
+        ]));
     }
     public function show(string $slug)
     {

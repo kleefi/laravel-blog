@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="grid md:grid-cols-2 grid-cols-1 my-4 md:gap-8 gap-16">
-                @foreach($postSidebar->take(2) as $post)
+                @foreach($digitalMarketingThumbs as $post)
                 <a href="/{{ $post->slug }}">
                     <div>
                         <div class="bg-white p-4 rounded-2xl border-black border-2 shadow-custom-black">
@@ -28,7 +28,7 @@
                 @endforeach
             </div>
             <div class="mt-8 px-4">
-                @foreach($postSidebar as $post)
+                @foreach($digitalMarketingList as $post)
                 <div class="grid md:grid-cols-[20%_60%_20%] grid-cols-1 items-center border-b-black border-b-2 py-2">
                     <span class="font-semibold">{{$post->created_at->format('d F Y')}}</span>
                     <a href="{{$post->slug}}">
@@ -42,8 +42,8 @@
 
         <div class="md:w-2/3 w-full bg-lime-100 p-4 rounded-2xl border-black border-2 shadow-custom-black">
             <h3 class="font-semibold p-3 text-lg flex -mt-12 mb-4 mx-auto justify-center"><span
-                    class="bg-yellow-500 rounded-md p-2 w-2/3 text-xl text-center">Current</span></h3>
-            @foreach($postSidebar as $post)
+                    class="bg-yellow-500 rounded-md p-2 w-2/3 text-xl text-center">Top Posts</span></h3>
+            @foreach($digitalMarketing as $post)
             <a href="{{ $post->slug }}">
                 <div class="grid grid-cols-[30%_70%] gap-0 items-center">
                     <img class="rounded-full border-black border-2 object-cover h-[80px] w-[80px] p-1.5"

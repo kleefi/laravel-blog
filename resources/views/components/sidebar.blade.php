@@ -30,24 +30,16 @@
             </li>
 
             <li>
-                <a href="#"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a href="{{ route('users.index') }}"
+                    class="flex items-center p-2 rounded-lg group {{ request()->is('dashboard/users*') ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                     <i class="fa-solid fa-user w-5 h-5 text-gray-500 dark:text-gray-400"></i>
                     <span class="ms-3">Users</span>
                 </a>
             </li>
 
             <li>
-                <a href="#"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <i class="fa-solid fa-comments w-5 h-5 text-gray-500 dark:text-gray-400"></i>
-                    <span class="ms-3">Comments</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a href="{{ route('profile.edit') }}"
+                    class="flex items-center p-2 rounded-lg group {{ request()->is('dashboard/profile*') ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                     <i class="fa-solid fa-gear w-5 h-5 text-gray-500 dark:text-gray-400"></i>
                     <span class="ms-3">Settings</span>
                 </a>

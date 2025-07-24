@@ -1,3 +1,5 @@
+@section('title', 'Posts')
+
 <x-app-layout>
     <div class="py-12">
 
@@ -31,6 +33,7 @@
                             'Uncategorized' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <div class="flex items-center space-x-2">
+                                <a href="/{{$post->slug}}" target="_blank">View</a>
                                 <a href="{{ route('posts.edit',$post->slug) }}"
                                     class="text-blue-600 hover:underline">Edit</a>
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST"

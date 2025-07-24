@@ -19,6 +19,6 @@
     <div class="bg-white p-4 rounded-2xl border-black border-2 shadow-custom-black md:w-[80%] w-full mx-auto">
         <img class="w-full object-cover md:h-[450px] h-[300px] rounded-md border-2 border-black -mt-9 mb-8"
             src="{{ asset('storage/'.$post->image) }}">
-        <p>{{$post->body}}</p>
+        {!! $post->body !!}
     </div>
     @endsection
