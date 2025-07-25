@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -23,7 +24,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.form-user');
+        $roles = Role::pluck('name', 'name');
+        return view('admin.form-user', compact('roles'));
     }
 
     /**
@@ -35,12 +37,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|string|exists:roles,name',
         ]);
 
         try {
             $validated['password'] = Hash::make($validated['password']);
             $validated['email_verified_at'] = now(); // opsional, kalau kamu mau langsung verifikasi email
-
+            $user = User::create($validated);
+            $user->assignRole($request->input('role'));
             User::create($validated);
 
             return redirect()->route('users.index')->with('success', 'User berhasil dibuat.');
@@ -64,7 +68,8 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
-        return view('admin.form-user', compact('user'));
+        $roles = Role::pluck('name', 'name');
+        return view('admin.form-user', compact('user', 'roles'));
     }
 
 
@@ -79,6 +84,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required|string|exists:roles,name', // validasi role
         ]);
 
         try {
@@ -89,6 +95,7 @@ class UserController extends Controller
             }
 
             $user->update($validated);
+            $user->syncRoles([$request->input('role')]);
 
             return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
         } catch (\Exception $e) {

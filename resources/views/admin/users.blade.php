@@ -25,7 +25,8 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Slug</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
                     </tr>
                 </thead>
@@ -34,6 +35,9 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $user->name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $user->email }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ $user->roles->pluck('name')->implode(', ') }}
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <div class="flex items-center space-x-2">
                                 <a href="{{ route('users.edit', $user->id) }}"

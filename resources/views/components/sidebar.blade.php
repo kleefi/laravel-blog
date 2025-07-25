@@ -28,7 +28,7 @@
                     <span class="ms-3">Categories</span>
                 </a>
             </li>
-
+            @role('admin')
             <li>
                 <a href="{{ route('users.index') }}"
                     class="flex items-center p-2 rounded-lg group {{ request()->is('dashboard/users*') ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
@@ -36,7 +36,7 @@
                     <span class="ms-3">Users</span>
                 </a>
             </li>
-
+            @endrole
             <li>
                 <a href="{{ route('profile.edit') }}"
                     class="flex items-center p-2 rounded-lg group {{ request()->is('dashboard/profile*') ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">

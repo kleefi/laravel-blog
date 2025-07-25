@@ -57,6 +57,20 @@
                     {{ isset($user) ? '' : 'required' }}>
             </div>
 
+
+            <select name="role" id="role" class="w-full border px-4 py-2 rounded">
+                <option value="">Pilih Role</option>
+                @foreach($roles as $key => $value)
+                <option value="{{ $key }}" {{ old('role', isset($user) && $user->roles->first()?->name == $key ?
+                    'selected' : '') }}>
+                    {{ ucfirst($value) }}
+                </option>
+                @endforeach
+            </select>
+
+
+
+
             <div class="flex justify-between items-center">
                 <a href="{{ route('users.index') }}" class="text-sm text-gray-600 hover:underline hover:text-blue-600">←
                     Back to List</a>

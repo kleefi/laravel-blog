@@ -24,13 +24,16 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/posts', AdminPostController::class);
     Route::resource('/categories', AdminCategoryController::class);
-    Route::resource('/users', AdminUserController::class);
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
+    // Admin only
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('/users', AdminUserController::class);
+    });
+});
 require __DIR__ . '/auth.php';
 Route::get('/{slug}', [PostController::class, 'show'])->name('show');
