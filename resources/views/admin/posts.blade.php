@@ -22,6 +22,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Views</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
                     </tr>
                 </thead>
@@ -31,6 +32,8 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $post->title }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $post->category->title ??
                             'Uncategorized' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $post->views }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $post->created_at }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <div class="flex items-center space-x-2">
                                 <a href="/{{$post->slug}}" target="_blank">View</a>
@@ -49,6 +52,8 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="p-4">
+            {{$posts->links()}}
+        </div>
     </div>
 </x-app-layout>

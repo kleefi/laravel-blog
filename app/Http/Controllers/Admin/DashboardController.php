@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,7 +15,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        return view('admin.dashboard', [
+            'postsCount' => Post::count(),
+            'categoriesCount' => Category::count(),
+            'usersCount' => User::count(),
+            'recentPosts' => Post::with('user')->latest()->limit(5)->get(),
+        ]);
     }
 
     /**

@@ -54,7 +54,7 @@
                         <input id="body" type="hidden" name="body" value="{{ old('body', $post->body ?? '') }}">
 
                         <trix-editor
-                            class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                            class="mt-1 block w-full min-h-52 rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                             input="body" toolbar="my_toolbar">
                         </trix-editor>
                     </main>
